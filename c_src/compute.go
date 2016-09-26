@@ -1,17 +1,22 @@
 // monoserv compute package
 // author: davethecust
 
-package main
+package c_src
 
 /*
 #cgo CFLAGS: -I.
 #cgo LDFLAGS: -L. -lcompute
 
-#include "compute.h"
+#include <compute.h>
+
 */
 import "C"
 
-func main() {
+func PrintFromCFiles() {
 	C.printPlayer1()
-	//	C.printPlayer2()
+	C.printPlayer2()
+}
+
+func main() {
+	PrintFromCFiles()
 }

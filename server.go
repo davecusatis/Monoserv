@@ -4,6 +4,7 @@
 package main
 
 import (
+	"./c_src"
 	"encoding/json"
 	"fmt"
 	"golang.org/x/net/websocket"
@@ -53,7 +54,10 @@ func websocketHandler(ws *websocket.Conn) {
 }
 
 func compile(c chan []Frame, wsMessage []byte) {
-	// do some shtuff
+	// call some C functions because why not
+	fmt.Printf("Calling C functions")
+	c_src.PrintFromCFiles()
+	// compute bogus frames
 	frames := [256]Frame{}
 	for i := 0; i < 4; i++ {
 		for j := 0; j < 255; j++ {
@@ -68,6 +72,7 @@ func compile(c chan []Frame, wsMessage []byte) {
 }
 
 func main() {
+	c_src.PrintFromCFiles()
 	http.Handle("/", websocket.Handler(websocketHandler))
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
